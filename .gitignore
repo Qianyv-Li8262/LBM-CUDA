@@ -1,0 +1,4 @@
+lbm.py
+*.bmp
+archive/
+__pycache__/
