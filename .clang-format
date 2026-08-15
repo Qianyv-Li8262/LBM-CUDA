@@ -1,0 +1,45 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+UseTab: Never
+TabWidth: 4
+ContinuationIndentWidth: 4
+BreakBeforeBraces: Linux
+AllowShortIfStatementsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+ColumnLimit: 120
+MaxEmptyLinesToKeep: 1
+
+# ==========================================
+# 2. CUDA 行业标准适配 (新增)
+# ==========================================
+
+# 2.1 将 CUDA 关键字定义为属性宏，避免格式化时在其后发生断行、错位
+AttributeMacros:
+  - __global__
+  - __device__
+  - __host__
+  - __shared__
+  - __constant__
+  - __managed__
+  - __launch_bounds__
+
+# 2.2 确保在属性限定符（如 __global__）后不换行
+BreakAfterAttributes: Never
+
+# 2.3 核心：尖括号之间和内部不加空格（保护 <<< >>> 不被拆开）
+SpacesInAngles: false
+
+# 2.4 头文件排序规则（符合 NVIDIA 主流开源项目排序规范）
+SortIncludes: CaseInsensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^"'                                             # 1. 双引号引入的本地头文件
+    Priority: 1
+  - Regex: '^<(cuda|cuda_runtime|cooperative_groups)'       # 2. CUDA 运行库
+    Priority: 2
+  - Regex: '^<(thrust|cub)/'                                # 3. NVIDIA 核心加速库
+    Priority: 3
+  - Regex: '^<[^.]+$'                                       # 4. C++ STL 标准库（无后缀文件）
+    Priority: 4
+  - Regex: '.*'                                             # 5. 其他系统库 (.h 后缀等)
+    Priority: 5

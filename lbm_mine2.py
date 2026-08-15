@@ -36,10 +36,6 @@ f_now_gpu = f_now_3d.ravel()
 f_out_gpu = f_now_gpu.copy() 
 print("Fluid field initialized successfully!")
 
-import cv2
-import numpy as np
-import cupy as cp
-
 def load_mask_from_image(file_path, totwidth, totheight):
 
     img = cv2.imread(file_path)
@@ -84,14 +80,14 @@ with stream:
                                 cp.float32(0.10),cp.float32(1.8)))
     graph=stream.end_capture()
 
-for i in range(2500):
+for i in range(2):
     graph.launch(stream=stream)
 
 
 
 window = zero_copy_window.ZeroCopyWindow(totwidth,totheight,'lbm')
 cp.cuda.profiler.start()
-iters_per_frame = 1
+iters_per_frame = 25
 last_time = time.time()
 while not window.should_close():
     for i in range(iters_per_frame):
@@ -100,10 +96,10 @@ while not window.should_close():
     visualizekernel((128,32),(16,16),(ux_init,uy_init,rho_init,image,mask_gpu,cp.int32(totwidth),cp.int32(totheight),cp.float32(50.0)))
     window.unmap_and_draw()
     frame_count += 1
-    if frame_count == 2:
-        cp.cuda.profiler.stop()
-        sys.exit()
-    if frame_count >= 100: # 每100次渲染统计一次
+    # if frame_count == 2:
+    #     cp.cuda.profiler.stop()
+    #     sys.exit()
+    if frame_count >= 10: # 每100次渲染统计一次
         duration = time.time() - last_time
         fps = frame_count / duration
         # \r 会让光标回到行首，实现原地刷新效果
