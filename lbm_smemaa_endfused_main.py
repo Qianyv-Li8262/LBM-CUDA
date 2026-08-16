@@ -48,7 +48,7 @@ def load_mask_from_image(file_path, totwidth, totheight):
 mask_gpu = load_mask_from_image("circle.bmp", totwidth, totheight)
 
 base_path = os.path.dirname(os.path.abspath(__file__))
-kernel_path = os.path.join(base_path, "lbm_core_smemaa_endfused.cu")
+kernel_path = os.path.join(base_path, "lbm_core_smemaa_policy.cu")
 with open(kernel_path, "r", encoding="utf-8") as f:
     cuda_source = f.read()
 
@@ -86,7 +86,7 @@ stream.synchronize()
 window = zero_copy_window.ZeroCopyWindow(totwidth, totheight, "lbm")
 cp.cuda.profiler.start()
 
-iters_per_frame = 50
+iters_per_frame = 20
 frame_count = 0
 last_time = time.time()
 
@@ -105,7 +105,7 @@ while not window.should_close():
     # if frame_count == 2:
     #     cp.cuda.profiler.stop()
     #     sys.exit()
-    if frame_count >= 10:
+    if frame_count >= 30:
         cp.cuda.Device().synchronize()
         duration = time.time() - last_time
         fps = frame_count / duration

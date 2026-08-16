@@ -2,3 +2,4 @@ lbm.py
 *.bmp
 archive/
 __pycache__/
+*.ncu-rep
