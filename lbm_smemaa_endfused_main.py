@@ -5,8 +5,8 @@ import cv2
 import os
 import time,sys
 
-totwidth = 4096
-totheight = 1024
+totwidth = 2048
+totheight = 512
 totpixels = totwidth * totheight
 
 w = cp.array([4/9, 1/9, 1/9, 1/9, 1/9, 1/36, 1/36, 1/36, 1/36], dtype=cp.float32)
