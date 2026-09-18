@@ -21,7 +21,7 @@ MLUPS/s 表示每秒更新的百万格点（Million Lattice Updates Per Second�
 
 ## 主要文件
 
-- `lbm.py`：Taichi 实现的原型。
+- Taichi 实现的原型未跟踪。
 - `lbm_smemaa_main.py`：使用 CuPy 编译、调用 CUDA 核函数的入口。
 - `lbm_core_smemaa.cu`：naive CUDA 实现。
 - `lbm_core_smemaa_endfused.cu`：temporal blocking CUDA 实现。最快。
