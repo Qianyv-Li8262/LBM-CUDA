@@ -26,8 +26,6 @@ MLUPS/s 表示每秒更新的百万格点（Million Lattice Updates Per Second�
 - `lbm_core_smemaa.cu`：naive CUDA 实现。
 - `lbm_core_smemaa_endfused.cu`：temporal blocking CUDA 实现。最快。
 - `lbm_core_smemaa_policy.cu`：其他优化策略与实验版本。
-- `circle.bmp`：示例障碍物掩码。
-
 ## 依赖
 
 Python 环境需要安装 `numpy`、`opencv-python`、`taichi` 和与本机 CUDA 匹配的 `cupy`。运行 CUDA 版本时需要可用的 NVIDIA GPU 及 CUDA 驱动。
