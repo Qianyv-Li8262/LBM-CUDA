@@ -87,7 +87,7 @@ for i in range(2):
 
 window = zero_copy_window.ZeroCopyWindow(totwidth,totheight,'lbm')
 cp.cuda.profiler.start()
-iters_per_frame = 25
+iters_per_frame = 1
 last_time = time.time()
 while not window.should_close():
     for i in range(iters_per_frame):
